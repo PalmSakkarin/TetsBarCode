@@ -7,7 +7,7 @@
   <div class="d-flex flex-wrap justify-content-center align-items-center mb-4 gap-2">
     <input type="text"
            [(ngModel)]="newBarcode"
-           (blur)="formatBarcode()"
+           (input)="formatBarcode()"
            placeholder="กรอกรหัสสินค้า หรือกด Generate"
            maxlength="19"
            class="form-control text-center"
@@ -24,13 +24,13 @@
   </div>
 
   <!-- แสดงรูปบาร์โค้ดแบบ Preview -->
-  <div class="text-center mb-4" *ngIf="newBarcode">
+  <!--<div class="text-center mb-4" *ngIf="newBarcode">
     <img [src]="'https://bwipjs-api.metafloor.com/?bcid=code128&text=' + newBarcode"
          alt="Barcode Preview"
          class="border p-2 shadow-sm bg-white"
          style="max-height: 120px;" />
     <p class="text-muted mt-2">{{ newBarcode }}</p>
-  </div>
+  </div>-->
 
   <!-- ตาราง -->
   <div class="table-responsive">
