@@ -1,12 +1,15 @@
 # 📦 BarcodeDB & Angular Frontend Setup
 
-โปรเจกต์นี้ประกอบด้วย Script สำหรับสร้างฐานข้อมูล `BarcodeDB` และส่วน Frontend ที่พัฒนาโดยใช้ **Angular**  Backend  ที่พัฒนาโดยใช้ **C#**
+โปรเจกต์นี้ประกอบด้วย  
+- 🗄️ **Script สำหรับสร้างฐานข้อมูล `BarcodeDB`**  
+- 🌐 **Frontend ที่พัฒนาโดยใช้ Angular**  
+- ⚙️ **Backend ที่พัฒนาโดยใช้ C# (.NET)**  
 
 ---
 
-## 🧩 Database Script (SQL Server)
+## 🧩 Database (SQL Server)
 
-## 🔹 ScriptSQL `Barcodes`
+### 🔹 สร้างฐานข้อมูลและตาราง `Barcodes`
 
 ```sql
 CREATE DATABASE BarcodeDB;
@@ -20,7 +23,6 @@ CREATE TABLE Barcodes (
     Code NVARCHAR(19) NOT NULL UNIQUE,
     CreatedAt DATETIME DEFAULT GETDATE()
 );
-
-
+```
 
 
