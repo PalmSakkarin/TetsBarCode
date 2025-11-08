@@ -1,0 +1,38 @@
+/*body {
+  background: #f6f9fc;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.container {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+h2 {
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+  button:hover {
+    transform: scale(1.05);
+  }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+*/
