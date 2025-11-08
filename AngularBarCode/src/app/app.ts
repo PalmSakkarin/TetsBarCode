@@ -26,7 +26,7 @@ export class App implements OnInit {
   loadBarcodes() {
     this.http.get<any[]>(this.apiUrl).subscribe({
       next: (res) => (this.barcodes = res),
-      error: (err) => console.error('❌ โหลดข้อมูลล้มเหลว:', err)
+      error: (err) => console.error('โหลดข้อมูลล้มเหลว:', err)
     });
   }
 
@@ -38,10 +38,10 @@ export class App implements OnInit {
 
     const pattern = /^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
     if (!pattern.test(this.newBarcode)) {
-      Swal.fire('รูปแบบรหัสสินค้าไม่ถูกต้อง', 'กรุณาระบุ ตัวเลขหรือตัวอักษรภาษาอังกฤษเท่านั้น', 'error');
+      Swal.fire('รูปแบบรหัสสินค้าไม่ถูกต้อง', 'กรุณาระบุ ตัวเลขหรือตัวอักษรภาษาอังกฤษ ให้ครบ 16 หลักเท่านั้น', 'error');
       return;
     }
-
+    //call api
     const newItem = { code: this.newBarcode };
     this.http.post(this.apiUrl, newItem).subscribe({
       next: () => {
@@ -61,39 +61,40 @@ export class App implements OnInit {
       }
     });
   }
-
-  deleteBarcode(id: number) {
+  //delete
+  deleteBarcode(item: any) {
     Swal.fire({
       title: 'คุณแน่ใจหรือไม่?',
-      text: 'ต้องการลบรายการนี้ใช่หรือไม่?',
+      text: `ต้องการลบรหัสสินค้า ${item.code} ใช่หรือไม่?`,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'ใช่, ลบเลย!',
+      confirmButtonText: 'ยืนยัน',
       cancelButtonText: 'ยกเลิก',
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6'
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.http.delete(`${this.apiUrl}/${id}`).subscribe({
+        this.http.delete(`${this.apiUrl}/${item.id}`).subscribe({
           next: () => {
             Swal.fire({
-              title: 'ลบสำเร็จ!',
-              text: 'ข้อมูลถูกลบเรียบร้อยแล้ว',
+              title: 'ลบข้อมูลเรียบร้อยแล้ว',
+              text: `รหัสสินค้า ${item.code} ถูกลบเรียบร้อยแล้ว`,
               icon: 'success',
-              timer: 1000,
+              timer: 1200,
               showConfirmButton: false
             });
             this.loadBarcodes();
           },
           error: (err) => {
             console.error(err);
-            Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถลบข้อมูลได้', 'error');
+            Swal.fire('เกิดข้อผิดพลาด', `ไม่สามารถลบรหัสสินค้า ${item.code} ได้`, 'error');
           }
         });
       }
     });
   }
 
+  //genBarcode
   generateBarcode(): void {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let raw = '';
@@ -102,7 +103,7 @@ export class App implements OnInit {
     }
     this.newBarcode = raw.replace(/(.{4})/g, '$1-').slice(0, -1);
   }
-
+  //format
   formatBarcode(): void {
     if (!this.newBarcode) return;
     let cleaned = this.newBarcode.toUpperCase().replace(/[^A-Z0-9]/g, '');

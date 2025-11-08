@@ -1,10 +1,9 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
 <div class="container mt-4">
   <h2 class="mb-4 text-center text-primary fw-bold">
     ระบบจัดการรหัสสินค้า (Barcode)
   </h2>
 
-  <!-- ะปุ่ม -->
+  <!-- ปุ่ม -->
   <div class="d-flex flex-wrap justify-content-center align-items-center mb-4 gap-2">
     <input type="text"
            [(ngModel)]="newBarcode"
@@ -13,9 +12,11 @@
            maxlength="19"
            class="form-control text-center"
            style="max-width: 280px; border: 1px solid #ccc; border-radius: 8px;" />
-    <button class="btn btn-secondary" (click)="generateBarcode()">
+
+    <!--Generate BarCode-->
+    <!--<button class="btn btn-secondary" (click)="generateBarcode()">
       <i class="fas fa-cog"></i> Generate
-    </button>
+    </button>-->
 
     <button class="btn btn-primary" (click)="addBarcode()">
       <i class="fas fa-plus-circle"></i> Add
@@ -37,23 +38,24 @@
            *ngIf="barcodes.length > 0; else noData">
       <thead class="table-primary">
         <tr class="text-center">
-          <th style="width: 80px;">ลำดับ</th>
-          <th>รหัสสินค้า</th>
-          <th>วันที่สร้าง</th>
-          <th>แสดงบาร์โค้ด</th>
-          <th style="width: 100px;">ลบ</th>
+          <th style="width: 80px;">Id</th>
+          <th>รหัสสินค้า (16 หลัก)</th>
+          <!--<th>วันที่สร้าง</th>-->
+          <th>บาร์โค้ดสินค้า</th>
+          <th style="width: 100px;">Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of barcodes; let i = index" class="text-center">
-          <td>{{ i + 1 }}</td>
+          <!--<td>{{ i + 1 }}</td>-->
+          <td>{{ item.id }}</td>
           <td class="fw-bold">{{ item.code }}</td>
-          <td>{{ item.createdAt | date: 'short' }}</td>
+          <!--<td>{{ item.createdAt | date: 'short' }}</td>-->
           <td>
             <img [src]="'https://bwipjs-api.metafloor.com/?bcid=code128&text=' + item.code" alt="Barcode" style="max-height: 80px;" />
           </td>
           <td>
-            <button class="btn btn-danger btn-sm" (click)="deleteBarcode(item.id)">
+            <button class="btn btn-danger btn-sm" (click)="deleteBarcode(item)">
               <i class="fas fa-trash-alt"></i> ลบ
             </button>
           </td>
@@ -62,10 +64,10 @@
     </table>
   </div>
 
-  <!-- ไม่มีข้อมูล -->
+  <!-- ไม่พบข้อมูล -->
   <ng-template #noData>
     <div class="alert alert-info text-center mt-3 shadow-sm">
-      ยังไม่มีข้อมูลรหัสสินค้า
+      ไม่พบข้อมูล
     </div>
   </ng-template>
 </div>
