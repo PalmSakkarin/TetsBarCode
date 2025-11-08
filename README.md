@@ -9,16 +9,18 @@
 ## 🔹 ScriptSQL `Barcodes`
 
 ```sql
-CREATE TABLE [dbo].[Barcodes](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	  NOT NULL,
-	[CreatedAt] [datetime] NULL,
-PRIMARY KEY CLUSTERED ([Id] ASC),
-UNIQUE NONCLUSTERED ([Code] ASC)
-)
+CREATE DATABASE BarcodeDB;
 GO
 
-ALTER TABLE [dbo].[Barcodes] 
-ADD DEFAULT (GETDATE()) FOR [CreatedAt]
+USE BarcodeDB;
 GO
+
+CREATE TABLE Barcodes (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Code NVARCHAR(19) NOT NULL UNIQUE,
+    CreatedAt DATETIME DEFAULT GETDATE()
+);
+
+
+
 
