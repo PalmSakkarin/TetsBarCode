@@ -7,7 +7,7 @@ namespace TetsBarCode.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BarcodeController : ControllerBase  // ✅ ต้องลงท้ายด้วย ControllerBase
+    public class BarcodeController : ControllerBase 
     {
         private readonly BarcodeContext _context;
 
@@ -16,14 +16,14 @@ namespace TetsBarCode.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet] //Get all barcodes Intable
         public async Task<IActionResult> GetBarcodes()
         {
             var list = await _context.Barcodes.ToListAsync();
             return Ok(list);
         }
 
-        [HttpPost]
+        [HttpPost] //Add a new barcode
         public async Task<IActionResult> AddBarcode([FromBody] BarcodeModel barcode)
         {
             if (barcode == null || string.IsNullOrWhiteSpace(barcode.Code))
@@ -34,7 +34,7 @@ namespace TetsBarCode.Controllers
             return Ok(barcode);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] //Delete a barcode by ID
         public async Task<IActionResult> DeleteBarcode(int id)
         {
             var barcode = await _context.Barcodes.FindAsync(id);
