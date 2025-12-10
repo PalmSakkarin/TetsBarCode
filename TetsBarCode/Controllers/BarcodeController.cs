@@ -12,11 +12,11 @@ namespace TetsBarCode.Controllers
     public class BarcodeController : ControllerBase 
     {
         private readonly BarcodeContext _context;
-        private readonly ErrorLogService _logService;
-        public BarcodeController(BarcodeContext context, ErrorLogService logService)
+        //private readonly ErrorLogService _logService;
+        public BarcodeController(BarcodeContext context)
         {
             _context = context;
-            _logService = logService;
+            //_logService = logService;
         }
 
         [HttpGet] //Get all barcodes Intable
@@ -41,7 +41,7 @@ namespace TetsBarCode.Controllers
             }
             catch (Exception ex)
             {
-                await _logService.WriteLog(ex, barcode, "AddBarcode");
+                //await _logService.WriteLog(ex, barcode, "AddBarcode");
                 return StatusCode(500, "Error occurred");
             }
             return Ok(barcode);
@@ -66,34 +66,34 @@ namespace TetsBarCode.Controllers
 
 
     }
-    public class ErrorLogService
-    {
-        private readonly BarcodeContext _context;
+    //public class ErrorLogService
+    //{
+    //    private readonly BarcodeContext _context;
 
-        public ErrorLogService(BarcodeContext context)
-        {
-            _context = context;
-        }
+    //    public ErrorLogService(BarcodeContext context)
+    //    {
+    //        _context = context;
+    //    }
 
-        public async Task WriteLog(Exception ex, object data, string appName)
-        {
-            var log = new ErrorLog
-            {
-                ErrorMessage = ex.Message,
-                StackTrace = ex.ToString(),
-                ErrorProcedure = ex.TargetSite?.Name,
-                ErrorLine = null,
-                Severity = null,
-                UserName = Environment.UserName,
-                InputData = data != null ? System.Text.Json.JsonSerializer.Serialize(data) : null,
-                ServerName = Environment.MachineName,
-                AppName = appName
-            };
+    //    public async Task WriteLog(Exception ex, object data, string appName)
+    //    {
+    //        var log = new ErrorLog
+    //        {
+    //            ErrorMessage = ex.Message,
+    //            StackTrace = ex.ToString(),
+    //            ErrorProcedure = ex.TargetSite?.Name,
+    //            ErrorLine = null,
+    //            Severity = null,
+    //            UserName = Environment.UserName,
+    //            InputData = data != null ? System.Text.Json.JsonSerializer.Serialize(data) : null,
+    //            ServerName = Environment.MachineName,
+    //            AppName = appName
+    //        };
 
-            _context.ErrorLogs.Add(log);
-            await _context.SaveChangesAsync();
-        }
-    }
+    //        _context.ErrorLogs.Add(log);
+    //        await _context.SaveChangesAsync();
+    //    }
+    //}
 
 
 }

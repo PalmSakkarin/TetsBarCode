@@ -28,7 +28,7 @@ builder.Services.AddCors(options =>
             .AllowCredentials();
     });
 });
-builder.Services.AddScoped<ErrorLogService>();
+//builder.Services.AddScoped<ErrorLogService>();
 builder.Services.AddDbContext<BarcodeContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
