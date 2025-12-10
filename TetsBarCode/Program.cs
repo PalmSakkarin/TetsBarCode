@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TetsBarCode.Controllers;
 using TetsBarCode.Data;
+using static TetsBarCode.Controllers.BarcodeController;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +28,7 @@ builder.Services.AddCors(options =>
             .AllowCredentials();
     });
 });
-
+builder.Services.AddScoped<ErrorLogService>();
 builder.Services.AddDbContext<BarcodeContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
